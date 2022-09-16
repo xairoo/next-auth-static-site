@@ -23,7 +23,7 @@ npm install --save next-static-site-auth
 You have to set a few environment variables to define your REST API endpoints inside `.env.local` (or what ever you use).
 And you can define a custom login and logged out URL.
 
-> Check the [options reference](https://github.com/Xairoo/next-static-site-auth/blob/master/OPTIONS.md) for the configuration variables.
+> Check the [options reference](https://github.com/Xairoo/next-static-site-auth/blob/main/packages/next-static-site-auth/OPTIONS.md) for the configuration variables.
 
 ## Usage
 
