@@ -1,0 +1,50 @@
+{
+  "name": "next-static-site-auth",
+  "version": "0.10.3",
+  "description": "Authentication solution for static sites build with Next.js (static HTML export / next export) and a custom API authentication endpoint",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "dist/**"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Xairoo/next-static-site-auth.git"
+  },
+  "author": {
+    "name": "Marcel Zurreck",
+    "email": "marcel.zurreck@gmail.com",
+    "url": "https://marcel.zurreck.com"
+  },
+  "keywords": [
+    "nextjs",
+    "authentication",
+    "jwt",
+    "static-site"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && mkdir dist && tsup src/index.tsx --format esm,cjs --dts --external react",
+    "dev": "tsup src/index.tsx --format esm,cjs --watch --dts"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.19",
+    "@types/react-dom": "^18.0.6",
+    "config": "*",
+    "eslint-config-custom": "*",
+    "tsconfig": "*",
+    "tsup": "^6.2.3",
+    "typescript": "^4.5.3"
+  },
+  "peerDependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18"
+  },
+  "dependencies": {
+    "next": "12.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18",
+    "jwt-decode": "^3.1.2"
+  }
+}
