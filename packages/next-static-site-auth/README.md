@@ -64,7 +64,18 @@ The [/dashboard](https://github.com/Xairoo/next-static-site-auth/blob/main/apps/
 
 NextStaticSiteAuth.js will send some data to your API and awaits a specific answer.
 
-> It's up to you to create a really strong authentication system!
+> It's up to you to handle all the requests on your API!
+
+So you will need a few routes on your API:
+
+- [Login route](#login-route)
+  - [Bearer token](#bearer-token)
+  - [Refresh token](#refresh-token)
+  - [Body](#body)
+- [Refresh Route](#refresh-route)
+- [Logout route](#logout-route)
+
+An minimal example API with the required routes is included in this monorepo and is located in [apps/api/](https://github.com/Xairoo/next-static-site-auth/blob/main/apps/api/).
 
 ### Login route
 
@@ -87,7 +98,7 @@ Handle the login request and on your API server and return on success:
 
 The [JWT](https://jwt.io/) token must contain at least `iat`, `exp` and the `user_id`.
 
-### Bearer token
+#### Bearer token
 
 The API has to send the bearer token with the `Authorization` header:
 
@@ -95,12 +106,12 @@ The API has to send the bearer token with the `Authorization` header:
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ```
 
-### Refresh token
+#### Refresh token
 
 Don't forget to set the JWT refresh token as a `refresh_token` cookie.
 Otherwise the client will be unauthenticated after the Bearer token expires because the token can't be refreshed.
 
-### Body
+#### Body
 
 The Body content must be `Content-Type: application/json` and should contain some user data to display the values on the page.
 This could be changed, but the example uses `email` in a few components (`dashboard.tsx` page and `authInfo.tsx` component).
@@ -112,7 +123,7 @@ This could be changed, but the example uses `email` in a few components (`dashbo
 }
 ```
 
-### Example response snippet from an `express` server:
+#### Example response snippet from an `express` server:
 
 ```js
 res.setHeader("Access-Control-Expose-Headers", "Authorization");
@@ -129,7 +140,7 @@ res.cookie("refresh_token", jwtRefreshToken, {
 res.status(200).json({ email: email, user_id: user_id });
 ```
 
-### Refresh Route
+### Refresh route
 
 `GET /auth/refresh`
 
@@ -137,8 +148,8 @@ Same as login, but you can skip the body object.
 
 Return:
 
-- Bearer token in the header
-- Optional: replace/extend refresh_token cookie
+- [Bearer token](#bearer-token) in the header
+- Optional: replace/extend [refresh token](#refresh-token) cookie
 
 ### Logout Route
 
