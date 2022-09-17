@@ -2,12 +2,12 @@
 
 You have to set a few environment variables to define your REST API endpoints inside `.env.local` (or what ever you use) and you can define a custom login and logged out URL.
 
-- [API_LOGIN](#nextpublicauthapilogin)
-- [API_REFRESH](#nextpublicauthapirefresh)
-- [API_LOGOUT](#nextpublicauthapilogout)
-- [URL_LOGIN_PAGE](#nextpublicauthurlloginpage)
-- [URL_LOGGED_OUT_PAGE](#nextpublicauthurlloggedoutpage)
-- [LOGGED_OUT_PAGE_SLUG](#nextpublicauthloggedoutpageslug)
+- [API_LOGIN](#next_public_auth_api_login)
+- [API_REFRESH](#next_public_auth_api_refresh)
+- [API_LOGOUT](#next_public_auth_api_logout)
+- [URL_LOGIN_PAGE](#next_public_auth_url_login_page)
+- [URL_LOGGED_OUT_PAGE](#next_public_auth_url_logged_out_page)
+- [LOGGED_OUT_PAGE_SLUG](#next_public_auth_logged_out_page_slug)
 
 ## NEXT_PUBLIC_AUTH_API_LOGIN
 
