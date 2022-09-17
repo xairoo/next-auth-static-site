@@ -1,6 +1,6 @@
 <div align="center">
   <h1>NextStaticSiteAuth.js</h1>
-  <p>A authentication solution for static sites build with Next.js (static HTML export / `next export`) and your own API authentication endpoint.</p>
+  <p>A authentication solution for static sites build with Next.js (static HTML export / <code>next export</code>) and your own API authentication endpoint.</p>
 </div>
 
 ## JWT authentication with a custom API
