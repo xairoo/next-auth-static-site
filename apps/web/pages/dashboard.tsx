@@ -1,5 +1,4 @@
-import { useSession, loginUrl } from "next-static-site-auth";
-import Link from "next/link";
+import { useSession } from "next-static-site-auth";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
 import Protected from "../components/protected";
@@ -11,7 +10,9 @@ export default function Dashboard() {
   const { data, error } = useSWR(
     token && status === "authenticated"
       ? {
-          url: "http://localhost:5000/data",
+          url: process.env.NEXT_PUBLIC_DATA_URL
+            ? process.env.NEXT_PUBLIC_DATA_URL
+            : "http://localhost:5000/data",
           method: "GET",
           token,
         }
