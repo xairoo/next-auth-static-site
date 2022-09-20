@@ -66,12 +66,15 @@ export function useRefreshHelper() {
   }, [hasWindow]);
 }
 
+// Prevent multiple refresh token requests
+let isRefreshing = false;
+
 /**
  * Get the current session
  *
  * @returns {object} Auth `status`, (user) `data`, JWT `token`
  */
-export function useSession(options?: object): {
+export function useSession(): {
   status: undefined | undefined | string;
   data: any;
   token: undefined | null | undefined | null | string;
@@ -107,6 +110,7 @@ export function useSession(options?: object): {
         // Refresh expired token?
         else if (authToken.isExpired) {
           const fetchData = async () => {
+            console.log("fetchData");
             try {
               // Token is expired, request a new one
               const res = await fetch(NEXT_PUBLIC_AUTH_API_REFRESH, {
@@ -114,6 +118,7 @@ export function useSession(options?: object): {
                   "Content-Type": "application/json",
                 },
                 credentials: "include",
+                mode: "cors",
                 method: "GET",
               });
 
@@ -170,9 +175,14 @@ export function useSession(options?: object): {
                 token: null,
               });
             }
+            isRefreshing = false;
           };
 
-          // Request a new token
+          if (isRefreshing) {
+            return;
+          }
+          isRefreshing = true;
+
           fetchData();
         }
       }
@@ -349,6 +359,7 @@ export function useLogout() {
       try {
         await fetch(NEXT_PUBLIC_AUTH_API_LOGOUT, {
           credentials: "include",
+          mode: "cors",
         });
       } catch (err: any) {
         // Request failed
