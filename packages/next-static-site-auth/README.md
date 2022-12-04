@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>NextStaticSiteAuth.js</h1>
+  <h1>next-static-site-auth</h1>
   <p>A authentication solution for static sites build with Next.js (static HTML export / <code>next export</code>) and your own API authentication endpoint.</p>
 </div>
 
@@ -62,7 +62,7 @@ The [/dashboard](https://github.com/Xairoo/next-static-site-auth/blob/main/apps/
 
 ## API requirements
 
-NextStaticSiteAuth.js will send some data to your API and awaits a specific answer.
+next-static-site-auth will send some data to your API and awaits a specific answer.
 
 > It's up to you to handle all the requests on your API!
 
