@@ -11,15 +11,15 @@ export default function AuthInfo() {
       <div>
         Not signed in,{" "}
         <Link
-          href={loginUrl()}
+          href={loginUrl({ pathname: "/login" })}
           // href={loginUrl({
           //   //
-          //   url: "en/login",
+          //   pathname: "en/login",
           //   callbackUrl: false,
           // })}
           /* It's fine to link also directly to your login page: href="/login" */
         >
-          <a>login</a>
+          login
         </Link>
       </div>
     );
@@ -28,10 +28,7 @@ export default function AuthInfo() {
   if (status === "authenticated") {
     return (
       <div>
-        Signed in as {session?.email},{" "}
-        <Link href="/logout">
-          <a>logout (link)</a>
-        </Link>{" "}
+        Signed in as {session?.email}, <Link href="/logout">logout (link)</Link>{" "}
         or{" "}
         <span
           className={style.link}

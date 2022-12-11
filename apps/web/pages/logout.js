@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useRouter } from "next/router";
 import { useLogout } from "next-static-site-auth";
 
 export default function Logout() {
@@ -7,12 +6,12 @@ export default function Logout() {
   const logout = useLogout();
 
   useEffect(() => {
-    // logout({ disableRemoteRequest: false }); // Skip logout API request
-    // logout('http://api.example.com/path-to-your-logout-endpoint'); // Overwrite logout API endpoint URL
-    logout({ redirect: false, apiRequest: false });
-
-    // router.push("/");
-  });
+    logout({
+      // redirect: false,
+      apiRequest: false,
+      callbackUrl: `/logged-out`,
+    });
+  }, []);
 
   return null;
 }

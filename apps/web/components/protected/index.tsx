@@ -7,7 +7,8 @@ export default function Protected() {
     <div className={styles.warning}>
       <div className={styles.title}>Protected route.</div>
       <div className="">
-        Please <Link href={loginUrl()}>login</Link> to view this page.
+        Please <Link href={loginUrl({ pathname: "/login" })}>login</Link> to
+        view this page.
       </div>
     </div>
   );

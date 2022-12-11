@@ -14,10 +14,10 @@ import {
   NEXT_PUBLIC_AUTH_API_LOGIN,
   NEXT_PUBLIC_AUTH_API_REFRESH,
   NEXT_PUBLIC_AUTH_API_LOGOUT,
-  NEXT_PUBLIC_AUTH_LOGIN_PAGE,
+  NEXT_PUBLIC_AUTH_LOGIN_PAGE_SLUG,
   NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG,
 } from "./options";
-import { useAuthContext, SessionProvider } from "./context";
+import { useAuthContext } from "./context";
 
 /**
  *
@@ -110,7 +110,6 @@ export function useSession(): {
         // Refresh expired token?
         else if (authToken.isExpired) {
           const fetchData = async () => {
-            console.log("fetchData");
             try {
               // Token is expired, request a new one
               const res = await fetch(NEXT_PUBLIC_AUTH_API_REFRESH, {
@@ -344,17 +343,17 @@ export function useLogout() {
 
   /**
    * @param {object} [options] - Options object
-   * @param {object} [options.redirect] - Credentials object, mostly email and password, will be sent to the API login endpoint as a POST request
    * @param {object} [options.apiRequest] - Custom API endpoint
-   * @param {object} [options.callbackUrl] - A custom callback URL that will be used on success
+   * @param {object} [options.callbackUrl] - A custom callback URL that will be used on success, e.g. if you want to show a logged out page
    * @returns {object} object - The return object
    * @returns {boolean} object.ok - `true` on successful login
    * @returns {number} object.status - HTTP status code from API
    * @returns {string} object.error - Error message
-   * @returns {string} object.callbackUrl - A callback url from the options object or from API (overwrites)
    */
   return async (options?: LogoutOptions): Promise<UseLogoutReturn> => {
-    let response = { status: null };
+    let response = { status: null, error: undefined };
+
+    // API request needed to logout?
     if (options?.apiRequest !== false) {
       try {
         await fetch(NEXT_PUBLIC_AUTH_API_LOGOUT, {
@@ -376,22 +375,21 @@ export function useLogout() {
       type: "LOGOUT",
     });
 
-    if (NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG) {
-      await router.push(NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG); // await... prevent rerender of current page
+    if (options?.callbackUrl) {
+      await router.push(options?.callbackUrl);
     }
 
     return {
       ok: true,
       status: response.status,
       error: undefined,
-      callbackUrl: options?.callbackUrl ? options.callbackUrl : null,
     };
   };
 }
 
 /**
  * @param {object} [options] - Options object
- * @param {string} [options.url] - Custom login URL base, callbackUrl will be added
+ * @param {string} [options.pathname] - Login pathname, callbackUrl will be added if wanted
  * @param {string} [options.callbackUrl] - Custom callback URL, set `false` to disable callbackUrl
  */
 export function loginUrl(options?: LoginUrlOptions): string {
@@ -410,13 +408,15 @@ export function loginUrl(options?: LoginUrlOptions): string {
   } else {
     // Don't redirect to logged-out or login page
     callbackUrl =
-      hasWindow && (urlBase.includes("logged-out") || urlBase.includes("login"))
+      hasWindow &&
+      (urlBase.includes(NEXT_PUBLIC_AUTH_LOGIN_PAGE_SLUG) ||
+        urlBase.includes(NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG))
         ? window.location.origin
         : window.location.href;
   }
 
   const loginUrl = `${
-    options && options.url ? options.url : NEXT_PUBLIC_AUTH_LOGIN_PAGE
+    options && options.pathname ? options.pathname : "/login"
   }${hasWindow && callbackUrl ? `?` : ``}${new URLSearchParams({
     ...(hasWindow &&
       callbackUrl && {

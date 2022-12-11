@@ -5,8 +5,7 @@ You have to set a few environment variables to define your REST API endpoints in
 - [API_LOGIN](#next_public_auth_api_login)
 - [API_REFRESH](#next_public_auth_api_refresh)
 - [API_LOGOUT](#next_public_auth_api_logout)
-- [URL_LOGIN_PAGE](#next_public_auth_url_login_page)
-- [URL_LOGGED_OUT_PAGE](#next_public_auth_url_logged_out_page)
+- [LOGIN_PAGE_SLUG](#next_public_auth_login_page_slug)
 - [LOGGED_OUT_PAGE_SLUG](#next_public_auth_logged_out_page_slug)
 
 ## NEXT_PUBLIC_AUTH_API_LOGIN
@@ -34,26 +33,18 @@ NEXT_PUBLIC_AUTH_API_LOGOUT=http://localhost:5000/auth/logout
 The URL to your logout endpoint (e.g. if you want to remove any stored session data from your API).  
 Can be set to `false` to disable the logout API request globally.
 
-## NEXT_PUBLIC_AUTH_URL_LOGIN_PAGE
+## NEXT_PUBLIC_AUTH_LOGIN_PAGE_SLUG
 
 ```
-NEXT_PUBLIC_AUTH_URL_LOGIN_PAGE=http://localhost:3000/login
+NEXT_PUBLIC_AUTH_LOGIN_PAGE_SLUG=/login
 ```
 
-URL for the login page.
-
-## NEXT_PUBLIC_AUTH_URL_LOGGED_OUT_PAGE
-
-```
-NEXT_PUBLIC_AUTH_URL_LOGGED_OUT_PAGE=http://localhost:3000/logged-out
-```
-
-URL for the logged out page.
+This slug helps to prevent generating a callback URL for the login URL that points to the login page.
 
 ## NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG
 
 ```
-NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG=logged-out
+NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG=/logged-out
 ```
 
 This slug helps to prevent generating a callback URL for the login URL that points to the logged out page.

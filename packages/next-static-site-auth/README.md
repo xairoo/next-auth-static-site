@@ -20,8 +20,7 @@ npm install --save next-static-site-auth
 
 ## Configuration
 
-You have to set a few environment variables to define your REST API endpoints inside `.env.local` (or what ever you use).
-And you can define a custom login and logged out URL.
+You have to set a few environment variables to define your REST API endpoints. This can be done for example in `.env.local` or `next.config.js`.
 
 > Check the [options reference](https://github.com/Xairoo/next-static-site-auth/blob/main/packages/next-static-site-auth/OPTIONS.md) for the configuration variables.
 
@@ -163,9 +162,10 @@ Return:
 This monorepo provides a API and a web example:
 
 - [Web](https://github.com/Xairoo/next-static-site-auth/tree/main/apps/web)
+- [Web with i18n locale support](https://github.com/Xairoo/next-static-site-auth/tree/main/apps/web-i18n)
 - [API](https://github.com/Xairoo/next-static-site-auth/tree/main/apps/api)
 
-Feel free to clone the monorepo and start the example using:
+Feel free to clone the monorepo and start the examples!
 
 Install all dependencies:
 

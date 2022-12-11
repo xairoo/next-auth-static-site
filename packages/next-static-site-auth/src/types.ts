@@ -35,7 +35,7 @@ export type LoginOptions = {
 };
 
 export type LoginUrlOptions = {
-  url?: string;
+  pathname?: string;
   callbackUrl?: string | false;
 };
 
@@ -49,12 +49,10 @@ export interface UseLoginReturn {
 export type LogoutOptions = {
   apiRequest?: boolean;
   callbackUrl?: string;
-  redirect?: boolean;
 };
 
 export interface UseLogoutReturn {
   ok: boolean;
   status: null | number;
   error: undefined | string;
-  callbackUrl: null | string;
 }

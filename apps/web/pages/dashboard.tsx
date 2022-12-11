@@ -48,7 +48,7 @@ export default function Dashboard() {
     return (
       <>
         <h1>Dashboard</h1>
-        <div>Protected route.</div>
+        <div>Protected page.</div>
         <div>
           Signed in as {session.email} <br />
         </div>
