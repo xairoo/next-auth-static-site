@@ -9,4 +9,4 @@
 ### Patch Changes
 
 - Updated dependencies [f77ad09]
-  - next-static-site-auth@0.10.0
+  - next-auth-static-site@0.10.0

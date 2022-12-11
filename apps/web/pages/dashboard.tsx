@@ -1,10 +1,10 @@
-import { useSession } from "next-static-site-auth";
+import { useSession } from "next-auth-static-site";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
 import Protected from "../components/protected";
 
 export default function Dashboard() {
-  const { status, data: session, token } = useSession({ redirect: true });
+  const { status, data: session, token } = useSession();
 
   // Fetch some external data if authenticated
   const { data, error } = useSWR(

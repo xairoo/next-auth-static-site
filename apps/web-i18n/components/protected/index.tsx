@@ -1,7 +1,7 @@
 // import Link from "../Link";
 import Link from "next/link";
 import styles from "./index.module.css";
-import { loginUrl } from "next-static-site-auth";
+import { loginUrl } from "next-auth-static-site";
 import { useTranslation, Trans } from "next-i18next-static-site";
 
 export default function Protected() {

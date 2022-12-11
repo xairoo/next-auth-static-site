@@ -1,5 +1,5 @@
 {
-  "name": "next-static-site-auth",
+  "name": "next-auth-static-site",
   "version": "0.10.4",
   "description": "Authentication solution for static sites build with Next.js (static HTML export / next export) and a custom API authentication endpoint",
   "main": "./dist/index.js",
@@ -12,11 +12,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/Xairoo/next-static-site-auth.git"
+    "url": "git://github.com/Xairoo/next-auth-static-site.git"
   },
   "author": {
     "name": "Marcel Zurreck",
-    "email": "marcel.zurreck@gmail.com",
     "url": "https://marcel.zurreck.com"
   },
   "keywords": [

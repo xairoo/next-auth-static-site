@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLogout } from "next-static-site-auth";
+import { useLogout } from "next-auth-static-site";
 import { useTranslation } from "next-i18next-static-site";
 
 export default function Logout() {

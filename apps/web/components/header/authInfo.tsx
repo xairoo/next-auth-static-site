@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useSession, useLogout, loginUrl } from "next-static-site-auth";
+import { useSession, useLogout, loginUrl } from "next-auth-static-site";
 import style from "./authInfo.module.css";
 
 export default function AuthInfo() {

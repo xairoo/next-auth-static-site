@@ -1,4 +1,4 @@
-const withTM = require("next-transpile-modules")(["next-static-site-auth"]);
+const withTM = require("next-transpile-modules")(["next-auth-static-site"]);
 
 module.exports = withTM({
   reactStrictMode: true,

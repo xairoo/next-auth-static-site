@@ -1,4 +1,4 @@
-import { SessionProvider } from "next-static-site-auth";
+import { SessionProvider } from "next-auth-static-site";
 import {
   I18nProvider,
   languages,

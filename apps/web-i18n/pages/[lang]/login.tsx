@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useLogin } from "next-static-site-auth";
+import { useLogin } from "next-auth-static-site";
 import { useTranslation } from "next-i18next-static-site";
 import styles from "./login.module.css";
 

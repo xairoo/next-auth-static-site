@@ -5,11 +5,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Xairoo/next-static-site-auth.git"
+    "url": "git://github.com/Xairoo/next-auth-static-site.git"
   },
   "author": {
     "name": "Marcel Zurreck",
-    "email": "marcel.zurreck@gmail.com",
     "url": "https://marcel.zurreck.com"
   },
   "keywords": [
@@ -25,7 +24,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next-static-site-auth": "*",
+    "next-auth-static-site": "*",
     "swr": "^1.3.0"
   },
   "devDependencies": {

@@ -1,1 +1,1 @@
-packages/next-static-site-auth/README.md
+packages/next-auth-static-site/README.md

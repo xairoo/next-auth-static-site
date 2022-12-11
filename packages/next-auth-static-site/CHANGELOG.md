@@ -1,4 +1,4 @@
-# next-static-site-auth
+# next-auth-static-site
 
 ## 0.10.0
 

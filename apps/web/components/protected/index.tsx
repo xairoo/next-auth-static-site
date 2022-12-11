@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styles from "./index.module.css";
-import { loginUrl } from "next-static-site-auth";
+import { loginUrl } from "next-auth-static-site";
 
 export default function Protected() {
   return (

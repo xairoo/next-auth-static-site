@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>next-static-site-auth</h1>
+  <h1>next-auth-static-site</h1>
   <p>A authentication solution for static sites build with Next.js (static HTML export / <code>next export</code>) and your own API authentication endpoint.</p>
 </div>
 
@@ -15,21 +15,21 @@ A JWT token is used for authentication and as a cookie refresh token.
 ## Installation
 
 ```
-npm install --save next-static-site-auth
+npm install --save next-auth-static-site
 ```
 
 ## Configuration
 
 You have to set a few environment variables to define your REST API endpoints. This can be done for example in `.env.local` or `next.config.js`.
 
-> Check the [options reference](https://github.com/Xairoo/next-static-site-auth/blob/main/packages/next-static-site-auth/OPTIONS.md) for the configuration variables.
+> Check the [options reference](https://github.com/Xairoo/next-auth-static-site/blob/main/packages/next-auth-static-site/OPTIONS.md) for the configuration variables.
 
 ## Usage
 
 Implement the `SessionProvider` like this in your `_app.js`:
 
 ```js
-import { SessionProvider } from "next-static-site-auth";
+import { SessionProvider } from "next-auth-static-site";
 import "./styles.css";
 
 const App = ({ Component, pageProps: { ...pageProps } }) => {
@@ -57,11 +57,11 @@ const { status, session, token } = useSession();
   - Provides the stored object returned from the login request (e.g. the username, email,...).
 - `token`: Returns the current JWT auth token.
 
-The [/dashboard](https://github.com/Xairoo/next-static-site-auth/blob/main/apps/web/pages/dashboard.tsx) page is a private page example.
+The [/dashboard](https://github.com/Xairoo/next-auth-static-site/blob/main/apps/web/pages/dashboard.tsx) page is a private page example.
 
 ## API requirements
 
-next-static-site-auth will send some data to your API and awaits a specific answer.
+next-auth-static-site will send some data to your API and awaits a specific answer.
 
 > It's up to you to handle all the requests on your API!
 
@@ -74,7 +74,7 @@ So you will need a few routes on your API:
 - [Refresh Route](#refresh-route)
 - [Logout route](#logout-route)
 
-An minimal example API with the required routes is included in this monorepo and is located in [apps/api/](https://github.com/Xairoo/next-static-site-auth/blob/main/apps/api/).
+An minimal example API with the required routes is included in this monorepo and is located in [apps/api/](https://github.com/Xairoo/next-auth-static-site/blob/main/apps/api/).
 
 ### Login route
 
@@ -161,9 +161,9 @@ Return:
 
 This monorepo provides a API and a web example:
 
-- [Web](https://github.com/Xairoo/next-static-site-auth/tree/main/apps/web)
-- [Web with i18n locale support](https://github.com/Xairoo/next-static-site-auth/tree/main/apps/web-i18n)
-- [API](https://github.com/Xairoo/next-static-site-auth/tree/main/apps/api)
+- [Web](https://github.com/Xairoo/next-auth-static-site/tree/main/apps/web)
+- [Web with i18n locale support](https://github.com/Xairoo/next-auth-static-site/tree/main/apps/web-i18n)
+- [API](https://github.com/Xairoo/next-auth-static-site/tree/main/apps/api)
 
 Feel free to clone the monorepo and start the examples!
 
