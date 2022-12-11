@@ -1,7 +1,7 @@
 {
   "name": "web-i18n",
-  "version": "0.6.1",
-  "description": "Example static Next.js site for NextStaticSiteAuth.js",
+  "version": "0.6.2",
+  "description": "Example static Next.js site for next-auth-static-site and next-i18next-static-site",
   "license": "MIT",
   "repository": {
     "type": "git",
