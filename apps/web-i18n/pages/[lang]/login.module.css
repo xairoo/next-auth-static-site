@@ -1,0 +1,30 @@
+.clickable {
+  color: #b366f9;
+  cursor: pointer;
+}
+
+.clickable:hover {
+  color: #fff;
+}
+
+.form {
+  margin: 25px 0;
+}
+
+.label {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+}
+
+.name {
+  display: block;
+}
+
+.input {
+  margin: 5px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+}

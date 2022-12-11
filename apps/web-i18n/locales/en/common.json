@@ -1,0 +1,22 @@
+{
+  "site": "Site",
+  "Language": "Language",
+  "de": "Deutsch",
+  "en": "English",
+  "Home": "Home",
+  "Second Page": "Second Page",
+  "Public page": "Public page",
+  "Protected content": "Protected content",
+  "Server time": "Server time",
+  "Logged Out": "Logged Out",
+  "See you later": "See you later",
+  "Login": "Login",
+  "Logout": "Logout",
+  "pleaseLogin": "Please <loginLink>login</loginLink> to view this page.",
+  "customLoginPage": "This is a custom login page.",
+  "Test credentials, click to apply": "Test credentials, click to apply",
+  "token refresh will fail": "token refresh will fail",
+  "Password": "Password",
+  "Email": "Email",
+  "signedInAs": "Signed in as <em>{{email}}</em>"
+}

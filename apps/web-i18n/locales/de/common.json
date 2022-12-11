@@ -1,0 +1,22 @@
+{
+  "Site": "Seite",
+  "Language": "Sprache",
+  "de": "Deutsch",
+  "en": "English",
+  "Home": "Startseite",
+  "Second Page": "Zweite Seite",
+  "Public page": "Öffentliche Seite",
+  "Protected content": "Geschützter Inhalt",
+  "Server time": "Server Zeit",
+  "Logged Out": "Ausgeloggt",
+  "See you later": "Bis bald",
+  "Login": "Anmelden",
+  "Logout": "Abmelden",
+  "pleaseLogin": "Bitte <loginLink>anmelden</loginLink> um diese Seite zu sehen.",
+  "customLoginPage": "Dies ist eine individuelle Anmeldeseite.",
+  "Test credentials, click to apply": "Test Anmeldedaten, anklicken um zu übernehmen",
+  "token refresh will fail": "Token Erneuerung scheitert",
+  "Password": "Passwort",
+  "Email": "Email",
+  "signedInAs": "Angemeldet als <em>{{email}}</em>"
+}
