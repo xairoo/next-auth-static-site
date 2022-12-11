@@ -1,6 +1,6 @@
 {
   "name": "next-auth-static-site",
-  "version": "0.10.4",
+  "version": "0.11.0",
   "description": "Authentication solution for static sites build with Next.js (static HTML export / next export) and a custom API authentication endpoint",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
