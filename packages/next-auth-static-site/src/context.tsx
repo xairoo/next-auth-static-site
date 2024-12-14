@@ -64,7 +64,7 @@ export function SessionProvider(props: SessionProviderProps) {
     } catch (err) {}
   }
 
-  const [state, dispatch] = React.useReducer<any>(reducer, localState);
+  const [state, dispatch] = React.useReducer(reducer, localState);
 
   return (
     <AuthStateContext.Provider value={{ state, dispatch }}>

@@ -30,7 +30,7 @@
     "test": "echo \"Error: no test specified\""
   },
   "devDependencies": {
-    "@types/react": "^18.0.19",
+    "@types/react": "^19.0.1",
     "@types/react-dom": "^18.0.6",
     "config": "*",
     "eslint-config-custom": "*",
@@ -43,8 +43,9 @@
     "react-dom": "^18.2.0"
   },
   "dependencies": {
-    "jwt-decode": "^3.1.2",
-    "next": "^13.0.6",
+    "@types/node": "^22.10.2",
+    "jwt-decode": "^4.0.0",
+    "next": "^14.2.20",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   }
