@@ -1,6 +1,15 @@
 <div align="center">
   <h1>next-auth-static-site</h1>
-  <p>A authentication solution for static sites build with Next.js (static HTML export / <code>next export</code>) and your own API authentication endpoint.</p>
+  <p>A lightweight authentication solution for static site builds with Next.js (static HTML export / <code>next export</code>) and your own API authentication endpoint.</p>
+  <p>
+    <a href="https://bundlephobia.com/package/next-auth-static-site@latest">
+      <img src="https://badgen.net/bundlephobia/minzip/next-auth-static-site"/>
+    </a>
+    <a href="https://www.npmjs.com/package/next-auth-static-site">
+      <img src="https://img.shields.io/github/v/release/xairoo/next-auth-static-site?label=latest" alt="Github Stable Release" />
+    </a>
+  </p>
+
 </div>
 
 ## JWT authentication with a custom API
