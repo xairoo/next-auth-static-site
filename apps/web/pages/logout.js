@@ -9,7 +9,7 @@ export default function Logout() {
       apiRequest: false,
       callbackUrl: `/logged-out`,
     });
-  }, []);
+  }, [logout]);
 
   return null;
 }

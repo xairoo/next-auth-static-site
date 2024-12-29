@@ -11,6 +11,14 @@ export default function Home() {
     <div>
       <h1>{t("Home")}</h1>
       <div>{t("Public page")}.</div>
+      <pre>
+        Example name: {process.env.NEXT_PUBLIC_EXAMPLE_NAME}
+        {"\n"}
+        Example version: {process.env.NEXT_PUBLIC_EXAMPLE_VERSION}
+        {"\n"}
+        Next.js version: {process.env.NEXT_PUBLIC_NEXT_VERSION}
+        {"\n"}
+      </pre>
     </div>
   );
 }

@@ -13,7 +13,7 @@ export default function Logout() {
       apiRequest: false,
       callbackUrl: `/${lang}/logged-out`,
     });
-  }, []);
+  }, [lang, logout]);
 
   return null;
 }

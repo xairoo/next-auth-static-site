@@ -48,7 +48,7 @@ export default function Dashboard() {
 
   if (status === "authenticated") {
     return (
-      <>
+      <div>
         <h1>Dashboard</h1>
         <div>{t("Protected content")}.</div>
         <div>
@@ -69,7 +69,7 @@ export default function Dashboard() {
             </div>
           )}
         </div>
-      </>
+      </div>
     );
   }
 }

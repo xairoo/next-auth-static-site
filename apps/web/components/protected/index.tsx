@@ -5,7 +5,7 @@ import { loginUrl } from "next-auth-static-site";
 export default function Protected() {
   return (
     <div className={styles.warning}>
-      <div className={styles.title}>Protected route.</div>
+      <div className={styles.title}>Protected content.</div>
       <div className="">
         Please <Link href={loginUrl({ pathname: "/login" })}>login</Link> to
         view this page.
