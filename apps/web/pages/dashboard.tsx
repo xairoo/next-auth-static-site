@@ -14,7 +14,7 @@ export default function Dashboard() {
             ? process.env.NEXT_PUBLIC_DATA_URL
             : "http://localhost:5000/data",
           method: "GET",
-          token,
+          token, // Pass the token to submit the `Authorization: Bearer ...` header, only needed if this must be a authenticated request
         }
       : null, // Fetch only if bearer token is set
     fetcher,
