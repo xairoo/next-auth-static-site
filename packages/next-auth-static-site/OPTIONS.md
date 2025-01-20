@@ -48,3 +48,11 @@ NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG=/logged-out
 ```
 
 This slug helps to prevent generating a callback URL for the login URL that points to the logged out page.
+
+## NEXT_PUBLIC_AUTH_REFRESH_THRESHOLD
+
+```
+NEXT_PUBLIC_AUTH_REFRESH_THRESHOLD=10
+```
+
+The maximum number of seconds between the current time and the Bearer token's expiration time.

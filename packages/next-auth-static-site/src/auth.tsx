@@ -16,6 +16,7 @@ import {
   NEXT_PUBLIC_AUTH_API_LOGOUT,
   NEXT_PUBLIC_AUTH_LOGIN_PAGE_SLUG,
   NEXT_PUBLIC_AUTH_LOGGED_OUT_PAGE_SLUG,
+  NEXT_PUBLIC_AUTH_REFRESH_THRESHOLD,
 } from "./options";
 import { useAuthContext } from "./context";
 
@@ -53,23 +54,6 @@ export class AuthToken {
 }
 
 /**
- * @todo
- * Refresh auth token before it expires
- */
-export function useRefreshHelper() {
-  const hasWindow = typeof window !== "undefined";
-
-  React.useEffect(() => {
-    if (hasWindow) {
-      // console.log("sessionHelper");
-    }
-  }, [hasWindow]);
-}
-
-// Prevent multiple refresh token requests
-let isRefreshing = false;
-
-/**
  * Get the current session
  *
  * @returns {object} Auth `status`, (user) `data`, JWT `token`
@@ -91,6 +75,8 @@ export function useSession(): {
   });
 
   const hasWindow = typeof window !== "undefined";
+
+  refreshHelper();
 
   React.useEffect(() => {
     if (hasWindow) {
@@ -199,6 +185,115 @@ export function useSession(): {
   return value;
 }
 
+// Prevent multiple refresh token requests
+let isRefreshing = false;
+let intervalId: ReturnType<typeof setInterval> | null;
+
+/**
+ * Check token expiresAt and refresh is needed
+ */
+function refreshHelper() {
+  const { state, dispatch } = useAuthContext();
+  const { token, data } = state;
+
+  const hasWindow = typeof window !== "undefined";
+
+  // Create a ref to hold the latest state
+  const stateRef = React.useRef(state);
+
+  // Update the ref whenever state changes
+  React.useEffect(() => {
+    stateRef.current = state;
+
+    if (!state.token && intervalId) {
+      clearInterval(intervalId);
+      intervalId = null; // Reset because we want to reuse it again
+    }
+  }, [state]);
+
+  //
+  React.useEffect(() => {
+    if (!hasWindow) {
+      return;
+    }
+
+    const checkToken = () => {
+      const { token } = stateRef.current; // Use the latest state from ref
+
+      if (token) {
+        const authToken = new AuthToken(token);
+        const timeLeft = authToken.expiresAt.getTime() - Date.now();
+
+        if (
+          timeLeft < NEXT_PUBLIC_AUTH_REFRESH_THRESHOLD * 1000 &&
+          !isRefreshing
+        ) {
+          const fetchData = async () => {
+            try {
+              // Token is expired, request a new one
+              const res = await fetch(NEXT_PUBLIC_AUTH_API_REFRESH, {
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                credentials: "include",
+                mode: "cors",
+                method: "GET",
+              });
+
+              const authorization = res.headers.get("Authorization");
+
+              let token;
+              if (
+                data &&
+                authorization &&
+                authorization.startsWith("Bearer ")
+              ) {
+                token = authorization.substring(7, authorization.length);
+
+                localStorage.setItem("auth_token", JSON.stringify(token));
+
+                dispatch({
+                  type: "SET_TOKEN",
+                  payload: token,
+                });
+              } else {
+                // Auth failed, remove the local session data
+                localStorage.removeItem("auth_token");
+                localStorage.removeItem("auth_data");
+
+                dispatch({
+                  type: "LOGOUT",
+                });
+              }
+            } catch (err) {
+              // Request failed
+              // Remove the local session data
+              localStorage.removeItem("auth_token");
+              localStorage.removeItem("auth_data");
+
+              dispatch({
+                type: "LOGOUT",
+              });
+            }
+            isRefreshing = false;
+          };
+
+          if (isRefreshing) {
+            return;
+          }
+          isRefreshing = true;
+
+          fetchData();
+        }
+      }
+    };
+
+    if (!intervalId && token) {
+      intervalId = setInterval(checkToken, 1000);
+    }
+  }, []);
+}
+
 /**
  * Perform a login request and store the auth data on success in React context.
  * API should return on success:
@@ -284,10 +379,10 @@ export function useLogin() {
           callbackUrl: error
             ? null
             : options && options.callbackUrl
-            ? options?.callbackUrl
-              ? options.callbackUrl.toString()
-              : null
-            : null,
+              ? options?.callbackUrl
+                ? options.callbackUrl.toString()
+                : null
+              : null,
         };
       }
 
@@ -298,8 +393,8 @@ export function useLogin() {
       const callbackUrl = data.callbackUrl
         ? data.callbackUrl
         : options && options.callbackUrl
-        ? options.callbackUrl
-        : null;
+          ? options.callbackUrl
+          : null;
 
       // Remove callbackUrl from object
       delete data.callbackUrl;
