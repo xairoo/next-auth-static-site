@@ -2,6 +2,7 @@ import { useSession } from "next-auth-static-site";
 import useSWR from "swr";
 import fetcher from "../utils/fetcher";
 import Protected from "../components/protected";
+import styles from "./dashboard.module.css";
 
 export default function Dashboard() {
   const { status, data: session, token } = useSession();
@@ -20,6 +21,7 @@ export default function Dashboard() {
     fetcher,
     {
       revalidateOnFocus: false,
+      refreshInterval: 1000 * 5,
     }
   );
 
@@ -60,6 +62,7 @@ export default function Dashboard() {
               <div>Server time: {data.serverTime}</div>
             </div>
           )}
+          {error && <div className={styles.error}>{error.toString()}</div>}
         </div>
       </>
     );
