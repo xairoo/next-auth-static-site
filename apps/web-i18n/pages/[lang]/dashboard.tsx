@@ -2,6 +2,7 @@ import { useSession } from "next-auth-static-site";
 import useSWR from "swr";
 import fetcher from "../../utils/fetcher";
 import Protected from "../../components/protected";
+import styles from "./dashboard.module.css";
 import { Trans, useTranslation } from "next-i18next-static-site";
 
 export default function Dashboard() {
@@ -22,6 +23,7 @@ export default function Dashboard() {
     fetcher,
     {
       revalidateOnFocus: false,
+      refreshInterval: 1000 * 5,
     }
   );
 
@@ -68,6 +70,7 @@ export default function Dashboard() {
               </div>
             </div>
           )}
+          {error && <div className={styles.error}>{error.toString()}</div>}
         </div>
       </div>
     );
