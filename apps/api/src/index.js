@@ -5,7 +5,7 @@ import jwt from 'jsonwebtoken';
 import { v4 as uuidv4 } from 'uuid';
 
 const jwtSecret = 'your-jwt-secret';
-const authTokenLifetime = 10;
+const authTokenLifetime = 60;
 const refreshTokenLifetime = 3600;
 const user_id = '3a5d40a8-4b7b-470f-909e-442dfcc01ff9';
 const port = 5000;
