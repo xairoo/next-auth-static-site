@@ -7,6 +7,7 @@ You have to set a few environment variables to define your REST API endpoints in
 - [API_LOGOUT](#next_public_auth_api_logout)
 - [LOGIN_PAGE_SLUG](#next_public_auth_login_page_slug)
 - [LOGGED_OUT_PAGE_SLUG](#next_public_auth_logged_out_page_slug)
+- [REFRESH_THRESHOLD](#next_public_auth_refresh_threshold)
 
 ## NEXT_PUBLIC_AUTH_API_LOGIN
 
