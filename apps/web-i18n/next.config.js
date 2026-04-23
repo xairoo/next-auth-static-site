@@ -1,9 +1,11 @@
+/** @type {import('next').NextConfig} */
 const packageJSON = require("./package.json");
 
-const withTM = require("next-transpile-modules")(["next-auth-static-site"]);
-
-module.exports = withTM({
+const nextConfig = {
   reactStrictMode: true,
+
+  transpilePackages: ["next-auth-static-site"],
+
   env: {
     // Just for the example
     NEXT_PUBLIC_EXAMPLE_NAME: packageJSON.name,
@@ -16,4 +18,6 @@ module.exports = withTM({
     NEXT_PUBLIC_AUTH_API_LOGOUT: "http://localhost:5000/auth/logout",
     NEXT_PUBLIC_DATA_URL: "http://localhost:5000/data",
   },
-});
+};
+
+module.exports = nextConfig;
