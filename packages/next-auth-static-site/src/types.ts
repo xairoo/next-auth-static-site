@@ -12,7 +12,7 @@ export type InitialStateProps =
 
 export type ReducerActionProps = {
   type: string;
-  payload: {
+  payload?: {
     token: tokenType;
     data: dataType;
   };

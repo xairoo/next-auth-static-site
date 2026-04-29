@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { jwtDecode } from "jwt-decode";
 import {
   tokenType,
-  Session,
   LoginOptions,
   LoginUrlOptions,
   UseLoginReturn,
@@ -19,6 +18,10 @@ import {
   NEXT_PUBLIC_AUTH_REFRESH_THRESHOLD,
 } from "./options";
 import { useAuthContext } from "./context";
+
+import { useSyncExternalStore } from "react";
+
+const emptySubscribe = () => () => {};
 
 /**
  *
@@ -58,131 +61,67 @@ export class AuthToken {
  *
  * @returns {object} Auth `status`, (user) `data`, JWT `token`
  */
-export function useSession(): {
-  status: undefined | undefined | string;
-  data: any;
-  token: undefined | null | undefined | null | string;
-} {
-  const router = useRouter();
+export function useSession() {
   const { state, dispatch } = useAuthContext();
-
   const { token, data } = state;
 
-  const [session, setSession] = React.useState<Session>({
-    status: "loading",
-    data: undefined,
-    token: undefined,
-  });
-
-  const hasWindow = typeof window !== "undefined";
+  const hydrated = useSyncExternalStore(
+    emptySubscribe,
+    () => true, // client snapshot
+    () => false, // server snapshot
+  );
 
   refreshHelper();
 
-  React.useEffect(() => {
-    if (hasWindow) {
-      if (!token) {
-        setSession({ status: "unauthenticated", data: null, token: null });
-      } else {
-        const authToken = new AuthToken(token);
+  if (!hydrated) {
+    return { status: "loading", data: undefined, token: undefined };
+  }
 
-        if (data && authToken.isAuthenticated) {
-          // User is authenticated
-          setSession({
-            status: "authenticated",
-            data: data,
-            token: authToken.token,
-          });
+  if (!hydrated) {
+    return { status: "loading", data: undefined, token: undefined };
+  }
+
+  if (!token) {
+    return { status: "unauthenticated", data: null, token: null };
+  }
+
+  const authToken = new AuthToken(token);
+
+  if (data && authToken.isAuthenticated) {
+    return { status: "authenticated", data, token: authToken.token };
+  }
+
+  if (authToken.isExpired && !isRefreshing) {
+    isRefreshing = true;
+    fetch(NEXT_PUBLIC_AUTH_API_REFRESH, {
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+      mode: "cors",
+      method: "GET",
+    })
+      .then((res) => {
+        const authorization = res.headers.get("Authorization");
+        if (data && authorization?.startsWith("Bearer ")) {
+          const newToken = authorization.substring(7);
+          localStorage.setItem("auth_token", JSON.stringify(newToken));
+          dispatch({ type: "SET_TOKEN", payload: newToken });
+        } else {
+          localStorage.removeItem("auth_token");
+          localStorage.removeItem("auth_data");
+          dispatch({ type: "LOGOUT" });
         }
-        // Refresh expired token?
-        else if (authToken.isExpired) {
-          const fetchData = async () => {
-            try {
-              // Token is expired, request a new one
-              const res = await fetch(NEXT_PUBLIC_AUTH_API_REFRESH, {
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                credentials: "include",
-                mode: "cors",
-                method: "GET",
-              });
+      })
+      .catch(() => {
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("auth_data");
+        dispatch({ type: "LOGOUT" });
+      })
+      .finally(() => {
+        isRefreshing = false;
+      });
+  }
 
-              const authorization = res.headers.get("Authorization");
-
-              let token;
-              if (
-                data &&
-                authorization &&
-                authorization.startsWith("Bearer ")
-              ) {
-                token = authorization.substring(7, authorization.length);
-
-                setSession({
-                  status: "authenticated",
-                  data: data,
-                  token: token,
-                });
-
-                localStorage.setItem("auth_token", JSON.stringify(token));
-
-                dispatch({
-                  type: "SET_TOKEN",
-                  payload: token,
-                });
-              } else {
-                // Auth failed, remove the local session data
-                localStorage.removeItem("auth_token");
-                localStorage.removeItem("auth_data");
-
-                dispatch({
-                  type: "LOGOUT",
-                });
-
-                setSession({
-                  status: "unauthenticated",
-                  data: null,
-                  token: null,
-                });
-              }
-            } catch (err) {
-              // Request failed
-              // Remove the local session data
-              localStorage.removeItem("auth_token");
-              localStorage.removeItem("auth_data");
-
-              dispatch({
-                type: "LOGOUT",
-              });
-
-              setSession({
-                status: "unauthenticated",
-                data: null,
-                token: null,
-              });
-            }
-            isRefreshing = false;
-          };
-
-          if (isRefreshing) {
-            return;
-          }
-          isRefreshing = true;
-
-          fetchData();
-        }
-      }
-    }
-  }, [
-    router, // Trigger to run when routing to the same site
-    hasWindow,
-    token,
-    data,
-    dispatch,
-  ]);
-
-  const value = React.useMemo(() => session, [session]);
-
-  return value;
+  return { status: "loading", data: undefined, token: undefined };
 }
 
 // Prevent multiple refresh token requests
@@ -327,7 +266,7 @@ export function useLogin() {
           },
           credentials: "include",
           method: "POST",
-        }
+        },
       );
 
       // Handle fetch error

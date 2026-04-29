@@ -28,8 +28,8 @@ function reducer(state: InitialStateProps, action: ReducerActionProps) {
     case "SET_SESSION":
       return {
         ...state,
-        token: action.payload.token,
-        data: action.payload.data,
+        token: action.payload?.token,
+        data: action.payload?.data,
       };
     case "SET_TOKEN":
       return { ...state, token: action.payload };
@@ -43,28 +43,48 @@ function reducer(state: InitialStateProps, action: ReducerActionProps) {
 }
 
 export function SessionProvider(props: SessionProviderProps) {
-  const localState = { ...initialState };
+  const [state, dispatch] = React.useReducer(reducer, initialState, () => {
+    const localState = { ...initialState };
+    if (typeof window !== "undefined") {
+      try {
+        localState.token = localStorage.getItem("auth_token")
+          ? JSON.parse(localStorage.getItem("auth_token") || "")
+          : null;
+      } catch (err) {}
+      try {
+        if (localState.token) {
+          localState.data = localStorage.getItem("auth_data")
+            ? JSON.parse(localStorage.getItem("auth_data") || "")
+            : null;
+        }
+      } catch (err) {}
+    }
+    return localState;
+  });
 
-  if (typeof window !== "undefined") {
-    // Get the token from localStorage
+  React.useEffect(() => {
     try {
-      localState.token = localStorage.getItem("auth_token")
+      const token = localStorage.getItem("auth_token")
         ? JSON.parse(localStorage.getItem("auth_token") || "")
         : null;
-    } catch (err) {}
 
-    // Get the user data from localStorage
-    try {
-      // Set data only if we have a token
-      if (localState.token) {
-        localState.data = localStorage.getItem("auth_data")
+      const data =
+        token && localStorage.getItem("auth_data")
           ? JSON.parse(localStorage.getItem("auth_data") || "")
           : null;
+
+      if (token) {
+        dispatch({
+          type: "SET_SESSION",
+          payload: { token, data },
+        });
+      } else {
+        dispatch({
+          type: "LOGOUT",
+        });
       }
     } catch (err) {}
-  }
-
-  const [state, dispatch] = React.useReducer(reducer, localState);
+  }, []);
 
   return (
     <AuthStateContext.Provider value={{ state, dispatch }}>
